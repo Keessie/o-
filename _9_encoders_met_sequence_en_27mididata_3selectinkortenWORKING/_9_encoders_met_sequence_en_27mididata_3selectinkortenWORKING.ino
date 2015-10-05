@@ -21,8 +21,11 @@ int mcpOut [9] = {1, 2, 3, 9, 10, 11, 13, 14, 15};
 // Ledring Pins
 int ledPins [9] = {10, 32, 6, 3, 5, 4, 25, 9, 23};
 
+// configurable data//
 int midiChannel = 1;
-
+int UP = 68;
+int DOWN = 60;
+// //////////////// //
 float ledValues [27];
 
 long encPos [9] = { -999, -999, -999, -999, -999, -999, -999, -999, -999,};
@@ -111,29 +114,29 @@ void midiCC(int n, int i) {
   //send a midi message
   if (n == 0) { //turn right
     if (i >= 0 && i <= 2) {
-      usbMIDI.sendControlChange((i * 3) + counter[0] , 68, midiChannel);  // encoder 0 up to 2 send '68 (up)' to defined midiChannel, control data number dependent on state of counter[0]
+      usbMIDI.sendControlChange((i * 3) + counter[0] , UP, midiChannel);  // encoder 0 up to 2 send '68 (up)' to defined midiChannel, control data number dependent on state of counter[0]
       ledValues [(i * 3) + counter[0]] += 0.33;                           // quick adjust ledvalues
     }
     if (i >= 3 && i <= 6) {
-      usbMIDI.sendControlChange((i * 3) + counter[1] , 68, midiChannel);  
+      usbMIDI.sendControlChange((i * 3) + counter[1] , UP, midiChannel);  
       ledValues [(i * 3) + counter[1]] += 0.33;
     }
     if (i >= 7 && i <= 8) {
-      usbMIDI.sendControlChange((i * 3) + counter[2] , 68, midiChannel);
+      usbMIDI.sendControlChange((i * 3) + counter[2] , UP, midiChannel);
       ledValues [(i * 3) + counter[2]] += 0.33;
     }
   }
   else { //turn left
     if (i >= 0 && i <= 2) {
-      usbMIDI.sendControlChange((i * 3) + counter[0] , 60, midiChannel);  // encoder 0 up to 2 send '60(down)' to defined midiChannel, control data number dependent on state of counter[0]
+      usbMIDI.sendControlChange((i * 3) + counter[0] , DOWN, midiChannel);  // encoder 0 up to 2 send '60(down)' to defined midiChannel, control data number dependent on state of counter[0]
       ledValues [(i * 3) + counter[0]] -= 0.33;
     }
     if (i >= 3 && i <= 6) {
-      usbMIDI.sendControlChange((i * 3) + counter[1] , 60, midiChannel);
+      usbMIDI.sendControlChange((i * 3) + counter[1] , DOWN, midiChannel);
       ledValues [(i * 3) + counter[1]] -= 0.33;
     }
     if (i >= 7 && i <= 8) {
-      usbMIDI.sendControlChange((i * 3) + counter[2] , 60, midiChannel);
+      usbMIDI.sendControlChange((i * 3) + counter[2] , DOWN, midiChannel);
       ledValues [(i * 3) + counter[2]] -= 0.33;
     }
   }
