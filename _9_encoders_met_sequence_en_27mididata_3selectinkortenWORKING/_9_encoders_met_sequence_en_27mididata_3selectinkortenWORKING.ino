@@ -178,7 +178,7 @@ void printLeds() {
 }
 
 void updateStatusLeds (int x, int y, int z) {
-  // changes statusleds
+  // changes statusleds, displaying counter [0],[1] and [2] states
   for (int i = 0; i < 3; i++)
   {
     if (i == x)
